@@ -39,7 +39,7 @@
         response = response.data
         if (response.errno === 0) {
           this.seller = response.data
-          console.log(this.seller)
+          // console.log(this.seller)
         }
       }).catch((err) => {
         console.log(err)
