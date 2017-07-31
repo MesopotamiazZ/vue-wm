@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-header></v-header>
+    <v-header :seller="seller"></v-header>
     <div class="tab">
       <div class="tab-item">
         <router-link to="/goods">商品</router-link>
@@ -19,12 +19,36 @@
 </template>
 
 <script>
-import Header from './components/header/Header.vue'
-export default {
-  components: {
-    vHeader: Header
+  // const ERR_OK = 0
+  import Header from './components/header/Header.vue'
+  import axios from 'axios'
+  export default {
+    data() {
+      return {
+        seller: {}
+      }
+    },
+    created() {
+      // this.$http.get('/api/seller').then((response) => {
+      //   response = response.body
+      //   if (response.errno === ERR_OK) {
+      //     this.seller = response.data
+      //   }
+      // })这个是过时的vue-resource的插件，下面是axios的插件
+      axios.get('/api/seller').then((response) => {
+        response = response.data
+        if (response.errno === 0) {
+          this.seller = response.data
+          console.log(this.seller)
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+    components: {
+      vHeader: Header
+    }
   }
-}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

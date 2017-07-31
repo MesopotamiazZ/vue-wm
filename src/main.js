@@ -3,10 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueResource from 'vue-resource'
 
 /* 默认tab页是goods */
 router.push('/goods')
 Vue.config.productionTip = false
+Vue.use(VueResource)
 
 /* eslint-disable no-new */
 new Vue({
