@@ -24,45 +24,48 @@
     </div>
     <div class="bulletin-wrapper" @click="detailShow">
       <span class="bulletin-image"></span><span class="bulletin-text">{{ seller.bulletin }}</span>
-      <i class="icon-keyboard_arrow_right"></i>
+      <!-- <i class="icon-keyboard_arrow_right"></i> -->
     </div>
     <div class="background">
       <img :src="seller.avatar">
     </div>
-    <div class="detail" v-show="isShow">
-      <div class="detail-wrapper clearfix">
-      	<div class="detail-main">
-      	  <h1 class="name">{{ seller.name }}</h1>
-      	  <div class="star-wrapper">
-      	  	<star :score="seller.score" :size="48"></star>
-      	  </div>
-      	  <div class="title">
-      	  	<div class="line"></div>
-      	  	<div class="text">优惠信息</div>
-      	  	<div class="line"></div>
-      	  </div>
-      	  <div class="supportsAll">
-      	  	<ul>
-      	  	  <li v-for="support in seller.supports">
-      	  	  	<span class="simg" v-bind:class="classMap[support.type]"></span>
-      	  	  	<span class="stext">{{ support.description }}</span>
-      	  	  </li>
-      	  	</ul>
-      	  </div>
-      	  <div class="title">
-      	  	<div class="line"></div>
-      	  	<div class="text">商家公告</div>
-      	  	<div class="line"></div>
-      	  </div>
-      	  <div class="detail-bulletin">
-      	  	<span class="dbtext">{{ seller.bulletin }}</span>
-      	  </div>
-      	</div>
-      </div>
-      <div class="detail-close">
-      	<i class="icon-close"></i>
-      </div>
-    </div>
+    <transition name="fade">
+	    <div class="detail" v-show="isShow">
+	      <div class="detail-wrapper clearfix">
+	      	<div class="detail-main">
+	      	  <h1 class="name">{{ seller.name }}</h1>
+	      	  <div class="star-wrapper">
+	      	  	<star :score="seller.score" :size="48"></star>
+	      	  </div>
+	      	  <div class="title">
+	      	  	<div class="line"></div>
+	      	  	<div class="text">优惠信息</div>
+	      	  	<div class="line"></div>
+	      	  </div>
+	      	  <div class="supportsAll">
+	      	  	<ul>
+	      	  	  <li v-for="support in seller.supports">
+	      	  	    <p v-text="support"></p>
+	      	  	  	<span class="simg" v-bind:class="classMap[support.type]"></span>
+	      	  	  	<span class="stext">{{ support.description }}</span>
+	      	  	  </li>
+	      	  	</ul>
+	      	  </div>
+	      	  <div class="title">
+	      	  	<div class="line"></div>
+	      	  	<div class="text">商家公告</div>
+	      	  	<div class="line"></div>
+	      	  </div>
+	      	  <div class="detail-bulletin">
+	      	  	<span class="dbtext">{{ seller.bulletin }}</span>
+	      	  </div>
+	      	</div>
+	      </div>
+	      <div class="detail-close">
+	      	<i class="icon-close" @click="detailClose"></i>
+	      </div>
+	    </div>
+    </transition>
   </div>
 </template>
 
@@ -83,6 +86,9 @@
     methods: {
       detailShow: function() {
         this.isShow = !this.isShow
+      },
+      detailClose: function() {
+        this.isShow = !this.isShow
       }
     },
     created() {
@@ -96,6 +102,68 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/mixin.styl"
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
+    opacity: 0
+  }
+  @font-face 
+    font-family: 'sell-icon'
+    src:  url('../../common/fonts/sell-icon.eot?nbq4u4')
+    src:  url('../../common/fonts/sell-icon.eot?nbq4u4#iefix') format('embedded-opentype'),
+      url('../../common/fonts/sell-icon.ttf?nbq4u4') format('truetype'),
+      url('../../common/fonts/sell-icon.woff?nbq4u4') format('woff'),
+      url('../../common/fonts/sell-icon.svg?nbq4u4#sell-icon') format('svg')
+    font-weight: normal
+    font-style: normal
+
+
+  [class^="icon-"], [class*=" icon-"] 
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'sell-icon' !important
+    speak: none
+    font-style: normal
+    font-weight: normal
+    font-variant: normal
+    text-transform: none
+    line-height: 1
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+
+
+  .icon-add_circle:before 
+    content: "\e908"
+
+  .icon-arrow_lift:before 
+    content: "\e900"
+
+  .icon-check_circle:before 
+    content: "\e905"
+
+  .icon-close:before 
+    content: "\e906"
+
+  .icon-favorite:before 
+    content: "\e904"
+
+  .icon-keyboard_arrow_right:before 
+    content: "\e909"
+
+  .icon-remove_circle_outline:before 
+    content: "\e907"
+
+  .icon-shopping_cart:before 
+    content: "\e903"
+
+  .icon-thumb_down:before 
+    content: "\e902"
+
+  .icon-thumb_up:before 
+    content: "\e901"
+    
   .header
     background: rgba(7, 17, 27, 0.5)
     font-size: 0
@@ -192,6 +260,7 @@
       font-size: 10px
       color: rgb(255, 255, 255)
       background-color: rgba(7, 17, 27, 0.2)
+      // position: absolute
       .bulletin-image
       	display: inline-block
       	width: 22px
@@ -206,7 +275,6 @@
       	font-weight: 200
       	vertical-align: middle
       	margin:0 4px
-      // .icon-keyboard_arrow_right
     .background
       position: absolute
       top: 0
@@ -227,7 +295,16 @@
       left: 0
       overflow: auto
       background-color: rgba(7, 17, 27, 0.8)
+      //只能在iphone看到后背景模糊效果
+      backdrop-filter: blur(10px)
       // filter: blur(10px)
+      // transition: fade 0.5
+      // &.fade-transition
+      //   opacity: 1
+      //   background-color: rgba(7, 17, 27, 0.8)
+      // &.fade-enter, &.fade-leave
+      //   opacity: 0
+      //   background-color: rgba(7, 17, 27, 0)
       .detail-wrapper
       	min-height: 100%
       	width: 100%
@@ -306,4 +383,5 @@
       	margin: -64px auto 0 auto
       	clear: both
       	font-size: 32px
+  
 </style>
