@@ -13,7 +13,7 @@
       </div>
     </div>
     <keep-alive>
-      <router-view></router-view>
+      <router-view v-bind:seller="seller"></router-view>
     </keep-alive>
   </div>
 </template>
