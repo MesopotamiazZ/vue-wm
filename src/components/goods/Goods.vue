@@ -1,6 +1,6 @@
 <template>
   <div class="goods">
-    <div class="menu-wrapper">
+    <div class="menu-wrapper" ref="menuWrapper">
       <ul class="menuItems">
       	<li v-for="menuItem in goods" class="menuItem">
       	  <span class="mitext">
@@ -9,7 +9,7 @@
       	</li>
       </ul>
     </div>
-    <div class="foods-wrapper">
+    <div class="foods-wrapper" ref="foodsWrapper">
       <ul class="food-lists">
       	<li v-for="foodsItem in goods" class="food-list">
       	  <h1 class="title">{{ foodsItem.name }}</h1>
@@ -22,12 +22,10 @@
       	  	  	<h2 class="name">{{ food.name }}</h2>
       	  	  	<p class="desc">{{ food.description }}</p>
       	  	  	<div class="extra">
-      	  	  	  <span>月售{{ food.sellCount }}</span>
-      	  	  	  <span>好评率{{ food.rating }}%</span>
+      	  	  	  <span>月售{{ food.sellCount }}</span><span>好评率{{ food.rating }}%</span>
       	  	  	</div>
       	  	  	<div class="price">
-      	  	  	  <span class="now">￥{{ food.price }}</span>
-      	  	  	  <span class="old" v-show="food.oldPrice">￥{{ food.oldPrice }}</span>
+      	  	  	  <span class="now">￥{{ food.price }}</span><span class="old" v-show="food.oldPrice">￥{{ food.oldPrice }}</span>
       	  	  	</div>
       	  	  </div>
       	  	</li>
@@ -40,6 +38,7 @@
 
 <script>
   import axios from 'axios'
+  import BScroll from 'better-scroll'
   export default {
     props: {
       seller: {
@@ -60,11 +59,19 @@
         if (response.errno === 0) {
           // 这里的response.data属性是goods对象的
           this.goods = response.data
-          // console.log(this.goods)
+          this.$nextTick(() => {
+            this._initScroll()
+          })
         }
       }).catch((err) => {
         console.log(err)
       })
+  	},
+  	methods: {
+      _initScroll() {
+        this.menuScroll = new BScroll(this.$refs.menuWrapper, {})
+        this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {})
+      }
   	}
   }
 </script>
@@ -142,7 +149,7 @@
           margin: 0 18px 18px 18px
           .food
             padding: 18px 0
-            border-bottom: 0.02rem solid rgb(147, 153, 159)
+            border-bottom: 0.02rem solid rgba(7, 17, 27, 0.1)
             // font-size: 0
             display: flex
             &:last-child
@@ -171,6 +178,7 @@
           	  	margin: 8px 0
           	  	font-size: 10px
           	  	color: rgb(147, 153, 159)
+          	  	line-height: 12px
           	  .extra
           	  	margin: 8px 0
           	  	font-size: 10px
