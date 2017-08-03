@@ -91,14 +91,14 @@
     flex-basis: 80px
     width: 80px
     background: #f3f5f7
-    overflow: hidden
+    // overflow: hidden
     .menuItems
       list-style: none
-      width: 85px
+      width: 80px
       font-size: 12px
-      overflow-x: hidden
-      overflow-y: scroll
-      // display: table
+      // overflow-x: hidden
+      // overflow-y: scroll
+      display: table
       .menuItem
       	width: 70%
       	margin: 0 auto
@@ -130,14 +130,15 @@
   .foods-wrapper
     flex: 1
     font-size: 12px
+    // overflow: hidden
     .food-lists
-      width: 100%
-      height: 100%
+      // width: 100%
+      // height: 100%
       .food-list
-        width: 100%
-        height: 100%
+        // width: 100%
+        // height: 100%
       	.title
-      	  width: 100%
+      	  // width: 100%
       	  height: 26px
       	  border-left: 0.166rem solid #d9dde1
       	  background-color: #f3f5f7
