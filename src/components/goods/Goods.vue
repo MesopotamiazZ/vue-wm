@@ -2,7 +2,7 @@
   <div class="goods">
     <div class="menu-wrapper" ref="menuWrapper">
       <ul class="menuItems">
-      	<li v-for="(menuItem, index) in goods" class="menuItem" :class="{'current':currentIndex===index}">
+      	<li v-for="(menuItem, index) in goods" class="menuItem" :class="{'current':currentIndex===index}" @click="selectMenu(index)">
       	  <span class="mitext">
       	  	<span v-show="menuItem.type>0" class="icon" :class="classMap[menuItem.type]"></span>{{ menuItem.name }}
       	  </span>
@@ -84,8 +84,11 @@
   	},
   	methods: {
       _initScroll() {
-        this.menuScroll = new BScroll(this.$refs.menuWrapper, {})
+        this.menuScroll = new BScroll(this.$refs.menuWrapper, {
+          click: true
+        })
         this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
+          click: true,
           probeType: 3
         })
 
@@ -102,6 +105,11 @@
           height += item.clientHeight
           this.listHeight.push(height)
         }
+      },
+      selectMenu(index) {
+        let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook')
+        let el = foodList[index] // 得到点击menu所对应的foodItems的这个元素
+        this.foodsScroll.scrollToElement(el, 300)
       }
   	}
   }
