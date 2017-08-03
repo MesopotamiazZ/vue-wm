@@ -2,7 +2,7 @@
   <div class="goods">
     <div class="menu-wrapper" ref="menuWrapper">
       <ul class="menuItems">
-      	<li v-for="menuItem in goods" class="menuItem">
+      	<li v-for="(menuItem, index) in goods" class="menuItem" :class="{'current':currentIndex===index}">
       	  <span class="mitext">
       	  	<span v-show="menuItem.type>0" class="icon" :class="classMap[menuItem.type]"></span>{{ menuItem.name }}
       	  </span>
@@ -11,7 +11,7 @@
     </div>
     <div class="foods-wrapper" ref="foodsWrapper">
       <ul class="food-lists">
-      	<li v-for="foodsItem in goods" class="food-list">
+      	<li v-for="foodsItem in goods" class="food-list food-list-hook"><!-- 为了能通过dom操作得到这个元素，而设置class为food-list-hook,无实际效果 -->
       	  <h1 class="title">{{ foodsItem.name }}</h1>
       	  <ul class="foods">
       	  	<li v-for="food in foodsItem.foods" class="food">
@@ -47,7 +47,21 @@
     },
     data() {
       return {
-        goods: []
+        goods: [],
+        listHeight: [], // 定义一个数组存放foodsWrapper每一个区间的height位置
+        scrollY: 0 // 定义foodsWrapper展示框最上面对应的foodsWrapper的height(高度)
+      }
+    },
+    computed: { // 定义变化属性
+      currentIndex() {
+        for (let i = 0; i < this.listHeight.length; i++) {
+          let height1 = this.listHeight[i]
+          let height2 = this.listHeight[i + 1]
+          if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
+            return i
+          }
+        }
+        return 0
       }
     },
   	created() { // 这个钩子是created不是create,找了半个小时
@@ -61,6 +75,7 @@
           this.goods = response.data
           this.$nextTick(() => {
             this._initScroll()
+            this._calculateHeight()
           })
         }
       }).catch((err) => {
@@ -70,7 +85,23 @@
   	methods: {
       _initScroll() {
         this.menuScroll = new BScroll(this.$refs.menuWrapper, {})
-        this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {})
+        this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
+          probeType: 3
+        })
+
+        this.foodsScroll.on('scroll', (pos) => {
+          this.scrollY = Math.abs(Math.round(pos.y))
+        })
+      },
+      _calculateHeight() {
+        let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook')
+        let height = 0 // 从上至下第一个区块开始height为0
+        this.listHeight.push(height)
+        for (let i = 0; i < foodList.length; i++) {
+          let item = foodList[i]
+          height += item.clientHeight
+          this.listHeight.push(height)
+        }
       }
   	}
   }
@@ -100,10 +131,12 @@
       // overflow-y: scroll
       display: table
       .menuItem
-      	width: 70%
+      	// width: 100%
+      	padding: 0 12px
       	margin: 0 auto
       	height: 62px
       	border-bottom: 0.083em solid rgba(7, 17, 27, 0.1)
+      
       	// position: absolute
       	.mitext
       	  position: relative
@@ -127,16 +160,23 @@
           	bg-image('invoice_3')
           .special
           	bg-image('special_3')
+      .current
+      	position: relative
+      	z-index: 10
+      	margin-top: -1px
+      	background: #fff
+      	font-weight: 700
+      	border-bottom: 0
   .foods-wrapper
     flex: 1
     font-size: 12px
     // overflow: hidden
     .food-lists
-      // width: 100%
-      // height: 100%
+      // width: 100%不能固定与窗口大小一样，造成无法滚动
+      // height: 100%不能固定与窗口大小一样，造成无法滚动
       .food-list
-        // width: 100%
-        // height: 100%
+        // width: 100%不能固定与窗口大小一样，造成无法滚动
+        // height: 100%不能固定与窗口大小一样，造成无法滚动
       	.title
       	  // width: 100%
       	  height: 26px
