@@ -33,10 +33,12 @@
       	</li>
       </ul>
     </div>
+    <shopcart :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart><!-- 应用shopcart组件 -->
   </div>
 </template>
 
 <script>
+  import Shopcart from '../shopcart/shopcart.vue'
   import axios from 'axios'
   import BScroll from 'better-scroll'
   export default {
@@ -111,6 +113,9 @@
         let el = foodList[index] // 得到点击menu所对应的foodItems的这个元素
         this.foodsScroll.scrollToElement(el, 300)
       }
+  	},
+  	components: {
+      Shopcart: Shopcart
   	}
   }
 </script>
