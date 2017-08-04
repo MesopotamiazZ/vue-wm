@@ -26,6 +26,9 @@
       	  	  	</div>
       	  	  	<div class="price">
       	  	  	  <span class="now">￥{{ food.price }}</span><span class="old" v-show="food.oldPrice">￥{{ food.oldPrice }}</span>
+      	  	  	  <div class="cartcontrol-wrapper">
+      	  	  	  	<cartcontrol :food="food"></cartcontrol>
+      	  	  	  </div>
       	  	  	</div>
       	  	  </div>
       	  	</li>
@@ -33,12 +36,13 @@
       	</li>
       </ul>
     </div>
-    <shopcart :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart><!-- 应用shopcart组件 -->
+    <shopcart :selectFoods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart><!-- 应用shopcart组件 -->
   </div>
 </template>
 
 <script>
   import Shopcart from '../shopcart/shopcart.vue'
+  import Cartcontrol from '../cartcontrol/cartcontrol.vue'
   import axios from 'axios'
   import BScroll from 'better-scroll'
   export default {
@@ -64,6 +68,17 @@
           }
         }
         return 0
+      },
+      selectFoods() {
+        let foods = []
+        this.goods.forEach((good) => {
+          good.foods.forEach((food) => {
+            if (food.count > 0) {
+              foods.push(food)
+            }
+          })
+        })
+        return foods
       }
     },
   	created() { // 这个钩子是created不是create,找了半个小时
@@ -115,7 +130,8 @@
       }
   	},
   	components: {
-      Shopcart: Shopcart
+      Shopcart: Shopcart,
+      Cartcontrol: Cartcontrol
   	}
   }
 </script>
@@ -204,6 +220,7 @@
           .food
             padding: 18px 0
             border-bottom: 0.02rem solid rgba(7, 17, 27, 0.1)
+            // position: relative
             // font-size: 0
             display: flex
             &:last-child
@@ -242,6 +259,7 @@
           	  .price
           	  	font-weight: 700
           	  	line-height: 24px
+          	  	position: relative
           	  	.now
           	  	  margin-right: 18px
           	  	  font-size: 14px
@@ -250,4 +268,10 @@
           	  	  text-decoration: line-through
           	  	  font-size: 10px
           	  	  color: rgb(147, 153, 159)
+          	  	.cartcontrol-wrapper
+          	  	  position: absolute
+          	  	  top: 0
+          	  	  right: 0
+          	  	  width: 80px
+          	  	  height: 100%
 </style>

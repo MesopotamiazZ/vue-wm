@@ -212,6 +212,6 @@
         text-align: center
         background: #2b343c
       .lightgreen
-      	background: #358c35
+      	background: #00b43c
       	color: rgb(255, 255, 255)
 </style>
