@@ -115,42 +115,41 @@
   content: "\e901"
 
 .cartcontrol
-    font-size: 0
-    position: relative
-    .cart-decrease
-      display: inline-block
-      padding: 6px
-      opacity: 1
-      transform: translate3d(0, 0, 0)
-      .inner
-        display: inline-block
-        line-height: 24px
-        font-size: 24px
-        color: rgb(0, 160, 220)
-        transition: all 0.4s linear
-        transform: rotate(0)
-      &.move-enter-active, &.move-leave-active
-        transition: all 0.4s linear
-      &.move-enter, &.move-leave-active
-        opacity: 0
-        transform: translate3d(24px, 0, 0)
-        .inner
-          transform: rotate(180deg)
-    .cart-count
-      display: inline-block
-      vertical-align: top
-      width: 12px
-      padding-top: 6px
-      line-height: 24px
-      text-align: center
-      font-size: 10px
-      color: rgb(147, 153, 159)
-    .cart-add
-      display: inline-block
-      padding: 6px
-      line-height: 24px
+  font-size:0 
+  position: relative
+  .cart-decrease
+  	display: inline-block
+  	position: absolute
+  	left: 0
+  	opacity: 1
+  	transform: translate3d(0, 0, 0)
+  	.inner
       font-size: 24px
+      display: inline-block
       color: rgb(0, 160, 220)
-      position: absolute
-      right: 0
+      transition: all .4s
+      transform: rotate(0)
+    &.move-enter-active, &.move-leave-active
+      transition: all .4s linear
+    &.move-enter, &.move-leave-to
+      opacity: 0
+      transform: translate3d(24px, 0, 0)
+      .inner
+        transform: rotate(180deg)
+  .cart-add
+    font-size: 24px
+    display: inline-block
+    color: rgb(0, 160, 220)
+    position: absolute
+    right: 0
+  .cart-count
+    font-size: 10px
+    display: inline-block
+    color: rgb(147, 153, 159)
+    vertical-align: top
+    width: 24px
+    text-align: center
+    margin-left: 4px
+    position: absolute
+    left: 24px
 </style>
