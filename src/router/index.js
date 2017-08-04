@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Goods from '../components/goods/Goods.vue'
-import Seller from '../components/seller/Seller.vue'
+// import Seller from '../components/seller/Seller.vue'
 import Ratings from '../components/ratings/Ratings.vue'
+import Btn from '../components/btn/btn.vue'
 
 Vue.use(Router)
 const routes = [
@@ -19,7 +20,7 @@ const routes = [
     {
       path: '/seller',
       name: 'seller',
-      component: Seller
+      component: Btn
     }
 ]
 

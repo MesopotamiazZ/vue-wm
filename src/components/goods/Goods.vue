@@ -273,5 +273,4 @@
           	  	  top: 0
           	  	  right: 0
           	  	  width: 80px
-          	  	  height: 100%
 </style>

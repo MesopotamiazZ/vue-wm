@@ -190,7 +190,7 @@
       	font-weight: 700
       	color: rgba(255, 255, 255, 0.4)
       	line-height: 48px
-      	width: 40px
+      	width: 45px
       	// text-align: center
       	border-right: 0.5px solid rgba(255, 255, 255, 0.1)
       .highlight
