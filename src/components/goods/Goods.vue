@@ -2,7 +2,7 @@
   <div class="goods">
     <div class="menu-wrapper" ref="menuWrapper">
       <ul class="menuItems">
-      	<li v-for="(menuItem, index) in goods" class="menuItem" :class="{'current':currentIndex===index}" @click="selectMenu(index)">
+      	<li v-for="(menuItem, index) in goods" class="menuItem" :class="{'current':currentIndex===index}" @click="selectMenu(index, $event)">
       	  <span class="mitext">
       	  	<span v-show="menuItem.type>0" class="icon" :class="classMap[menuItem.type]"></span>{{ menuItem.name }}
       	  </span>
@@ -27,7 +27,8 @@
       	  	  	<div class="price">
       	  	  	  <span class="now">￥{{ food.price }}</span><span class="old" v-show="food.oldPrice">￥{{ food.oldPrice }}</span>
       	  	  	  <div class="cartcontrol-wrapper">
-      	  	  	  	<cartcontrol :food="food"></cartcontrol>
+      	  	  	    <!-- 通过监听add事件，可以让子组件定义的emit方法生效,并触发addFood方法 -->
+      	  	  	  	<cartcontrol v-on:add="addFood" :food="food"></cartcontrol>
       	  	  	  </div>
       	  	  	</div>
       	  	  </div>
@@ -36,7 +37,8 @@
       	</li>
       </ul>
     </div>
-    <shopcart :selectFoods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart><!-- 应用shopcart组件 -->
+    <!-- ref="Shopcart"这个属性可以让父组件访问到子组件的方法 -->
+    <shopcart ref="Shopcart" v-bind:selectFoods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart><!-- 应用shopcart组件 -->
   </div>
 </template>
 
@@ -123,10 +125,22 @@
           this.listHeight.push(height)
         }
       },
-      selectMenu(index) {
+      selectMenu(index, event) {
+        if (!event._constructed) {
+          return
+        }
         let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook')
         let el = foodList[index] // 得到点击menu所对应的foodItems的这个元素
         this.foodsScroll.scrollToElement(el, 300)
+      },
+      addFood(target) {
+        this._drop(target)
+      },
+      _drop(target) {
+        // 体验优化,异步执行下落动画
+        this.$nextTick(() => {
+          this.$refs.Shopcart.drop(target)
+        })
       }
   	},
   	components: {

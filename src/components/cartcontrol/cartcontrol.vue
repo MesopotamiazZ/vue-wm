@@ -19,38 +19,26 @@
       }
     },
     methods: {
-      addCart(event) {
+      addCart(event) { // 添加商品
         if (!event._constructed) {
           return
         }
         if (!this.food.count) {
-          Vue.set(this.food, 'count', 1) // 对this.food添加count属性也会影响到父组件的food
-          // this.selectFoods.push({name: this.food.name, price: this.food.price, count: this.food.count})
+          Vue.set(this.food, 'count', 1)
         } else {
           this.food.count++
-          // let length = this.selectFoods.length
-          // for (let i = 0; i < length; i++) {
-          //   if (this.food.name === this.selectFoods[i].name) {
-          //     this.selectFoods[i].count++
-          //   }
-          // }
         }
+        // 通过点击“+”按钮将按钮的event.target的dom对象传给父元素
+        // this.$dispatch('cart.add', event.target),更新后用emit方法
+        this.$emit('add', event.target)
       },
-      decreaseCart() {
+      decreaseCart() { // 减少商品
         if (!event._constructed) {
           return
         }
         if (this.food.count > 0) {
           this.food.count--
         }
-        // else {
-        //   let length = this.selectFoods.length
-        //   // for (let i = 0; i < length; i++) {
-        //   //   if (this.food.name === this.selectFoods[i].name) {
-        //   //     this.selectFoods.splice(i, 1)
-        //   //   }
-        //   // }
-        // }
       }
     }
   }
