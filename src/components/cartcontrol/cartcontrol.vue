@@ -111,6 +111,7 @@
   	left: 0
   	opacity: 1
   	transform: translate3d(0, 0, 0)
+  	// vertical-align: top
   	.inner
       font-size: 24px
       display: inline-block
@@ -130,12 +131,15 @@
     color: rgb(0, 160, 220)
     position: absolute
     right: 0
+    // vertical-align: top
   .cart-count
     font-size: 10px
     display: inline-block
     color: rgb(147, 153, 159)
-    vertical-align: top
+    // vertical-align: top
     width: 24px
+    height: 24px
+    line-height: 24px
     text-align: center
     margin-left: 4px
     position: absolute

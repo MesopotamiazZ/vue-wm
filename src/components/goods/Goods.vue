@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="goods">
     <div class="menu-wrapper" ref="menuWrapper">
       <ul class="menuItems">
@@ -14,7 +15,7 @@
       	<li v-for="foodsItem in goods" class="food-list food-list-hook"><!-- 为了能通过dom操作得到这个元素，而设置class为food-list-hook,无实际效果 -->
       	  <h1 class="title">{{ foodsItem.name }}</h1>
       	  <ul class="foods">
-      	  	<li v-for="food in foodsItem.foods" class="food">
+      	  	<li @click="selectFood(food,$event)" v-for="food in foodsItem.foods" class="food">
       	  	  <div class="food-icon">
       	  	  	<img :src="food.icon">
       	  	  </div>
@@ -40,11 +41,14 @@
     <!-- ref="Shopcart"这个属性可以让父组件访问到子组件的方法 -->
     <shopcart ref="Shopcart" v-bind:selectFoods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart><!-- 应用shopcart组件 -->
   </div>
+  <!-- <food :food="selectedFood" v-show="false"></food> -->
+</div>
 </template>
 
 <script>
   import Shopcart from '../shopcart/shopcart.vue'
   import Cartcontrol from '../cartcontrol/cartcontrol.vue'
+  import Food from '../food/food.vue'
   import axios from 'axios'
   import BScroll from 'better-scroll'
   export default {
@@ -57,7 +61,8 @@
       return {
         goods: [],
         listHeight: [], // 定义一个数组存放foodsWrapper每一个区间的height位置
-        scrollY: 0 // 定义foodsWrapper展示框最上面对应的foodsWrapper的height(高度)
+        scrollY: 0, // 定义foodsWrapper展示框最上面对应的foodsWrapper的height(高度)
+        selectedFood: {} // 被选中的商品食物
       }
     },
     computed: { // 定义变化属性
@@ -141,11 +146,18 @@
         this.$nextTick(() => {
           this.$refs.Shopcart.drop(target)
         })
+      },
+      selectFood(food, event) {
+        if (!event._constructed) {
+          return
+        }
+        this.selectedFood = food
       }
   	},
   	components: {
       Shopcart: Shopcart,
-      Cartcontrol: Cartcontrol
+      Cartcontrol: Cartcontrol,
+      Food: Food
   	}
   }
 </script>
@@ -250,8 +262,6 @@
           	.food-content
           	  flex: 1
           	  font-size: 12px
-          	  height: auto
-          	  width: auto
           	  vertical-align: top
           	  margin: 2px 0
           	  .name
