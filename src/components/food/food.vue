@@ -23,7 +23,8 @@
   	    </div>
   	    <div class="box"></div><!-- 每一个栏目的分割线 -->
   	    <div class="food-info">
-  	      
+  	      <h1 class="title">商品介绍</h1>
+  	      <p class="info">{{ food.info }}</p>
   	    </div>
   	    
   	  </div>
@@ -216,8 +217,20 @@
   .box
     width: 100%
     height: 16px
-    border-top: 0.5px solid rgba(7, 17, 27, 0.1)
-    border-bottom: 0.5px solid rgba(7, 17, 27, 0.1)
+    border-top: 1px solid rgba(7, 17, 27, 0.1)
+    border-bottom: 1px solid rgba(7, 17, 27, 0.1)
     background-color: #f3f5f7
-  
+  .food-info
+    h1
+      font-size: 14px
+      font-weight: 700
+      color: rgb(7, 17, 27)
+      line-height: 14px
+      margin: 18px 18px 6px
+    p
+      font-size: 12px
+      font-weight: 200
+      color: rgb(77, 85, 93)
+      line-height: 24px
+      margin: 0 18px 18px
 </style>
