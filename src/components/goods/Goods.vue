@@ -1,5 +1,4 @@
 <template>
-<div>
   <div class="goods">
     <div class="menu-wrapper" ref="menuWrapper">
       <ul class="menuItems">
@@ -40,9 +39,8 @@
     </div>
     <!-- ref="Shopcart"这个属性可以让父组件访问到子组件的方法 -->
     <shopcart ref="Shopcart" v-bind:selectFoods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart><!-- 应用shopcart组件 -->
+    <food :food="selectedFood" ref="Food"></food><!-- 在这卡了一天血泪教训，food组件中class属性名字与之前class名字重复导致之前效果被覆盖，一定要引以为戒 -->
   </div>
-  <!-- <food :food="selectedFood" v-show="false"></food> -->
-</div>
 </template>
 
 <script>
@@ -152,6 +150,7 @@
           return
         }
         this.selectedFood = food
+        this.$refs.Food.show()
       }
   	},
   	components: {
