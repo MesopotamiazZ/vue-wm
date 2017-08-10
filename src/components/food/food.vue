@@ -21,12 +21,12 @@
   	      </div>
   	      <div @click.stop.prevent="addFirst(food,$event)" class="buy" v-show="!food.count || food.count===0">加入购物车</div>
   	    </div>
-  	    <div class="box"></div><!-- 每一个栏目的分割线 -->
+  	    <split></split>
   	    <div class="food-info">
   	      <h1 class="title">商品介绍</h1>
   	      <p class="info">{{ food.info }}</p>
   	    </div>
-  	    
+  	    <ratingselect :ratings="food.ratings"></ratingselect>
   	  </div>
   	</div>
   </transition>
@@ -35,7 +35,9 @@
 <script type="text/javascript">
   import BScroll from 'better-scroll'
   import Cartcontrol from '../cartcontrol/cartcontrol.vue'
+  import Split from '../split/split.vue'
   import Vue from 'vue'
+  import Ratingselect from '../ratingselect/ratingselect.vue'
   export default {
   	props: {
       food: {
@@ -70,7 +72,9 @@
       }
     },
     components: {
-      Cartcontrol: Cartcontrol
+      Cartcontrol: Cartcontrol,
+      Split: Split,
+      Ratingselect: Ratingselect
     }
   }
 </script>
@@ -214,12 +218,12 @@
   	  border-radius: 12px
   	  color: #fff
   	  background:rgb(0, 160, 220)
-  .box
-    width: 100%
-    height: 16px
-    border-top: 1px solid rgba(7, 17, 27, 0.1)
-    border-bottom: 1px solid rgba(7, 17, 27, 0.1)
-    background-color: #f3f5f7
+  // .box
+  //   width: 100%
+  //   height: 16px
+  //   border-top: 1px solid rgba(7, 17, 27, 0.1)
+  //   border-bottom: 1px solid rgba(7, 17, 27, 0.1)
+  //   background-color: #f3f5f7
   .food-info
     h1
       font-size: 14px
