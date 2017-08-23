@@ -42,7 +42,7 @@
 	      	  	<div class="text">优惠信息</div>
 	      	  	<div class="line"></div>
 	      	  </div>
-	      	  <div class="supportsAll">
+	      	  <div class="supportsAll"> 
 	      	  	<ul>
 	      	  	  <li v-for="support in seller.supports">
 	      	  	    <p v-text="support"></p>
