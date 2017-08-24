@@ -19,13 +19,19 @@
 </template>
 
 <script>
-  // const ERR_OK = 0
+  const ERR_OK = 0
   import Header from './components/header/Header.vue'
   import axios from 'axios'
+  // import {urlParse} from './common/js/util.js'
   export default {
     data() {
       return {
-        seller: {}
+        seller: {
+          // id: (() => {
+          //   let queryParm = urlParse()
+          //   return queryParm.id
+          // })()
+        }
       }
     },
     created() {
@@ -37,9 +43,9 @@
       // })这个是过时的vue-resource的插件，下面是axios的插件
       axios.get('/api/seller').then((response) => {
         response = response.data
-        if (response.errno === 0) {
+        if (response.errno === ERR_OK) {
+          // assign方法可以给seller对象拓展属性到{}，最后赋值给seller
           this.seller = response.data
-          // console.log(this.seller)
         }
       }).catch((err) => {
         console.log(err)

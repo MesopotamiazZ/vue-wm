@@ -52,13 +52,17 @@
           	</li>
           </ul>
         </div>
-      </div><!-- 商家信息 -->
+      </div><!-- 商家实景 -->
       <split></split>
       <div class="sellerInfo">
       	<h1 class="title">商家信息</h1>
       	<ul class="infos">
       	  <li class="info" v-for="info in seller.infos">{{ info }}</li>
       	</ul>
+      </div><!-- 商家信息 -->
+      <div class="favorite">
+      	<i class="icon-favorite" @click="toggleFavorite()" ref="iFavorite"></i>
+      	<span class="text">{{ favorite === false? '收藏':'已收藏' }}</span>
       </div>
     </div>
   </div>
@@ -72,6 +76,11 @@
   	props: {
       seller: {
         type: Object
+      }
+  	},
+  	data() {
+      return {
+        favorite: false
       }
   	},
     created() {
@@ -107,9 +116,7 @@
         })
       },
       _initPics() {
-        console.log(1111117)
         if (this.seller.pics) {
-          console.log(this.$refs.picList)
           let picWidth = 120
           let margin = 6
           // 计算出pics中ul的宽度,并赋值
@@ -122,6 +129,16 @@
             })
           })
         }
+      },
+      toggleFavorite() {
+        console.log(this.favorite)
+        this.favorite = !this.favorite
+        if (this.favorite === true) {
+          console.log(this.$refs)
+          this.$refs.iFavorite.style.color = '#f01414'
+        } else {
+          this.$refs.iFavorite.style.color = '#9e9e9e'
+        }
       }
   	},
     components: {
@@ -133,6 +150,62 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/mixin.styl"
+  @font-face 
+    font-family: 'sell-icon'
+    src:  url('../../common/fonts/sell-icon.eot?nbq4u4')
+    src:  url('../../common/fonts/sell-icon.eot?nbq4u4#iefix') format('embedded-opentype'),
+      url('../../common/fonts/sell-icon.ttf?nbq4u4') format('truetype'),
+      url('../../common/fonts/sell-icon.woff?nbq4u4') format('woff'),
+      url('../../common/fonts/sell-icon.svg?nbq4u4#sell-icon') format('svg')
+    font-weight: normal
+    font-style: normal
+
+
+  [class^="icon-"], [class*=" icon-"] 
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'sell-icon' !important
+    speak: none
+    font-style: normal
+    font-weight: normal
+    font-variant: normal
+    text-transform: none
+    line-height: 1
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+
+
+  .icon-add_circle:before 
+    content: "\e908"
+
+  .icon-arrow_lift:before 
+    content: "\e900"
+
+  .icon-check_circle:before 
+    content: "\e905"
+
+  .icon-close:before 
+    content: "\e906"
+
+  .icon-favorite:before 
+    content: "\e904"
+
+  .icon-keyboard_arrow_right:before 
+    content: "\e909"
+
+  .icon-remove_circle_outline:before 
+    content: "\e907"
+
+  .icon-shopping_cart:before 
+    content: "\e903"
+
+  .icon-thumb_down:before 
+    content: "\e902"
+
+  .icon-thumb_up:before 
+    content: "\e901"
+    
   .seller
     position: absolute
     top: 174px
@@ -266,4 +339,20 @@
           	border-bottom: 0.1px solid rgba(7, 17, 27, 0.1)
           .info:last-child
           	border-bottom: 0
+      .favorite
+        position: fixed
+        top: 18px
+        right: 18px
+        text-align: center
+        .icon-favorite
+          display: block
+          color: #9e9e9e
+          font-size: 24px
+          line-height: 24px
+          margin-bottom: 4px
+        .text
+          display: block
+          font-size: 10px
+          color: rgb(77, 85, 93)
+          line-height: 10px
 </style>
