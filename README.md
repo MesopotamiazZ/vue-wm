@@ -29,7 +29,6 @@ npm test
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-显示效果图：
-![image](https://github.com/MesopotamiazZ/vue-wm/tree/master/resource/vue-wm1.jpeg)
-![image](https://github.com/MesopotamiazZ/vue-wm/tree/master/resource/vue-wm2.jpeg)
-![image](https://github.com/MesopotamiazZ/vue-wm/tree/master/resource/vue-wm3.jpeg)
+##展示效果：
+
+![image](https://github.com/MesopotamiazZ/vue-wm/tree/master/resource/demo1.jpeg)
