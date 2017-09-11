@@ -31,6 +31,8 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 ## 展示效果：
 
-![image](https://github.com/MesopotamiazZ/vue-wm/raw/master/resource/demo1.jpeg)
-<img src="https://github.com/MesopotamiazZ/vue-wm/raw/master/resource/demo1.jpeg" width="500px"/>
-![image](https://github.com/oukingtim/king-admin/blob/master/screenshots/login.png)
+<img src="https://github.com/MesopotamiazZ/vue-wm/raw/master/resource/demo1.jpeg" width="300px"/>
+<img src="https://github.com/MesopotamiazZ/vue-wm/raw/master/resource/demo2.jpeg" width="300px"/>
+<img src="https://github.com/MesopotamiazZ/vue-wm/raw/master/resource/demo3.jpeg" width="300px"/>
+<img src="https://github.com/MesopotamiazZ/vue-wm/raw/master/resource/demo4.jpeg" width="300px"/>
+
