@@ -29,6 +29,6 @@ npm test
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-##展示效果：
+## 展示效果：
 
 ![image](https://github.com/MesopotamiazZ/vue-wm/tree/master/resource/demo1.jpeg)
