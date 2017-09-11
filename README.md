@@ -31,4 +31,4 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 ## 展示效果：
 
-![image](https://github.com/MesopotamiazZ/vue-wm/tree/master/resource/demo1.jpeg)
+![image](https://github.com/MesopotamiazZ/vue-wm/master/resource/demo1.jpeg)
